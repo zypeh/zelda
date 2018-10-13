@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig-base",
+  "compilerOptions": {
+      "outFile": "../../built/local/puffc.js"
+  },
+  "files": [
+      "puffc.ts"
+  ],
+  "references": [
+      { "path": "../compiler", "prepend": true }
+  ]
+}
