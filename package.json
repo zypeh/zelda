@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "watch": "tsc --build --watch ./src/tsconfig.json",
     "build": "tsc --build ./src/tsconfig.json"
   },
   "devDependencies": {
