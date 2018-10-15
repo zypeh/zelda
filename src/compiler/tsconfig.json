@@ -4,6 +4,7 @@
     "outDir": "../../built/local"
   },
   "files": [
-    "index.ts"
+    "index.ts",
+    "scanner.ts"
   ]
 }

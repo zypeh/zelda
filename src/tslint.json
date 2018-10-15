@@ -6,6 +6,7 @@
     "no-reference": true,
     "no-duplicate-switch-case": true,
     "no-shadowed-variable": true,
-    "no-implicit-dependencies": true
+    "no-implicit-dependencies": true,
+    "no-console": true,
   }
 }

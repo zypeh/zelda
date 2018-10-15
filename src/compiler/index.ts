@@ -1,3 +1,7 @@
-export function aaa() {
-  console.log("hello - aaaa")
+const debug = require('debug')('compiler')
+
+import { sepNewline } from './scanner'
+
+export function scan(input: string) {
+  debug(sepNewline(input))
 }
