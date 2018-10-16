@@ -28,6 +28,15 @@ export class Scanner {
     const c = input.charCodeAt(this.position)
     switch(c) {
 
+      case CharacterCodes.lineFeed:
+      case CharacterCodes.carriageReturn:
+      case CharacterCodes.lineSeparator:
+      case CharacterCodes.paragraphSeparator:
+        // Newline
+        debug('<newline>')
+        this.position++
+        return SyntaxSet.NewlineToken
+
       case CharacterCodes.slash:
         if (input.charCodeAt(this.position + 1) === CharacterCodes.slash) {
           if (input.charCodeAt(this.position + 2) === CharacterCodes.slash) {
@@ -62,7 +71,7 @@ export class Scanner {
       default:
         debug('<unimplemented> at [' + this.position + ']')
         this.position++
-        return SyntaxSet.TrueKeyword
+        return SyntaxSet.Unknown
 
     }
   }

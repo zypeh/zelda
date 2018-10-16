@@ -29,6 +29,7 @@ export const enum SyntaxSet {
   CommentKeyword,
   DocCommentKeyword,
   EndOfFileToken,
+  NewlineToken,
   // BlockCommentKeyword,
   // ArrowKeyword,
 }
