@@ -30,6 +30,19 @@ export class Scanner {
 
       case CharacterCodes.slash:
         if (input.charCodeAt(this.position + 1) === CharacterCodes.slash) {
+          if (input.charCodeAt(this.position + 2) === CharacterCodes.slash) {
+            // Documentation comment
+            this.position += 3
+            while (this.position < end) {
+              if (isLineBreak(input.charCodeAt(this.position)))
+                break
+
+              this.position++
+            }
+            debug('<doc comment>')
+            return SyntaxSet.DocCommentKeyword
+          }
+
           // Single-line comment
           this.position += 2
           while (this.position < end) {
@@ -39,7 +52,7 @@ export class Scanner {
 
             this.position++
           }
-          debug("<comment keyword>")
+          debug("<comment>")
           return SyntaxSet.CommentKeyword
         }
 
