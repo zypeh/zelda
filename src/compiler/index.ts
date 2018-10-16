@@ -1,7 +1,12 @@
+import { SyntaxSet } from './scanner/types';
+import { Scanner } from './scanner';
+
 const debug = require('debug')('compiler')
 
-import { sepNewline } from './scanner'
+const scanner = new Scanner()
 
-export function scan(input: string) {
-  debug(sepNewline(input))
-}
+scanner.setText('// hello\ncode here')
+
+// Iterate through the input string
+for (let token = scanner.scan(); token != SyntaxSet.EndOfFileToken; token = scanner.scan()) {}
+debug(scanner)

@@ -1,4 +1,0 @@
-var foo: number = 'not a number'
-if f(x) {
-  statement1
-}else{statement2}
