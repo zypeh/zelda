@@ -46,7 +46,7 @@ export class Scanner {
       case CharacterCodes.slash:
         if (input.charCodeAt(this.position + 1) === CharacterCodes.asterisk) {
           // Comment block
-          this.tokState |= TokenState.Unterminated
+          let isCommentClosed: boolean = false
           this.position += 2
           while (this.position < end) {
 
@@ -55,13 +55,13 @@ export class Scanner {
               (isWhiteSpaceLike(input.charCodeAt(this.position + 2)) || (this.position + 2) >= end))
             {
               this.position += 2
-              this.tokState &= ~TokenState.Unterminated
+              isCommentClosed = true
               break
             }
 
             this.position++
           }
-          debug('<block comment>')
+          debug(`<block comment isClosed: ${isCommentClosed}>`)
           return SyntaxSet.BlockCommentKeyword
         }
 
@@ -116,6 +116,23 @@ export class Scanner {
             debug('<false>')
             return SyntaxSet.FalseKeyword
           }
+
+        // string literal
+        case CharacterCodes.doubleQuote:
+          let isStringLiteralClosed: boolean = false
+          this.position++
+          while (this.position < end) {
+
+            if (input.charCodeAt(this.position) === CharacterCodes.doubleQuote) {
+              this.position++
+              isStringLiteralClosed = true
+              break
+            }
+
+            this.position++
+          }
+          debug(`<string literal isClosed: ${isStringLiteralClosed}>`)
+          return SyntaxSet.StringLiteral
 
       /**
        * Unimplemented
