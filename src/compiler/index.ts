@@ -8,8 +8,7 @@ const scanner = new Scanner()
 scanner.setText(`
 // hello
 ///code here
-true false
-`)
+true`)
 
 // Iterate through the input string
 debug(scanner)

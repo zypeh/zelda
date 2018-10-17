@@ -44,7 +44,10 @@ export class Scanner {
           // Comment block
           this.position += 2
           while (this.position < end) {
-            if (this.position === CharacterCodes.asterisk && (this.position + 1) === CharacterCodes.slash && this.tokState & TokenState.Unterminated) {
+            if (this.position === CharacterCodes.asterisk &&
+              (this.position + 1) === CharacterCodes.slash &&
+              this.tokState & TokenState.Unterminated)
+            {
               this.tokState |= TokenState.Unterminated
               break
             }
@@ -84,7 +87,11 @@ export class Scanner {
         // true
         // TODO: handle last token is EOF situation
         case CharacterCodes.t:
-          if (input.charCodeAt(this.position + 1) === CharacterCodes.r && input.charCodeAt(this.position + 2) === CharacterCodes.u && input.charCodeAt(this.position + 3) === CharacterCodes.e && isWhiteSpaceLike(input.charCodeAt(this.position + 4))) {
+          if (input.charCodeAt(this.position + 1) === CharacterCodes.r &&
+            input.charCodeAt(this.position + 2) === CharacterCodes.u &&
+            input.charCodeAt(this.position + 3) === CharacterCodes.e &&
+            (isWhiteSpaceLike(input.charCodeAt(this.position + 4)) || (this.position + 4) >= end))
+          {
             this.position += 4
             debug('<true>')
             return SyntaxSet.TrueKeyword
@@ -93,7 +100,12 @@ export class Scanner {
         // false
         // TODO: handle last token is EOF situation
         case CharacterCodes.f:
-          if (input.charCodeAt(this.position + 1) === CharacterCodes.a && input.charCodeAt(this.position + 2) === CharacterCodes.l && input.charCodeAt(this.position + 3) === CharacterCodes.s && input.charCodeAt(this.position + 4) === CharacterCodes.e && isWhiteSpaceLike(input.charCodeAt(this.position + 5))) {
+          if (input.charCodeAt(this.position + 1) === CharacterCodes.a &&
+            input.charCodeAt(this.position + 2) === CharacterCodes.l &&
+            input.charCodeAt(this.position + 3) === CharacterCodes.s &&
+            input.charCodeAt(this.position + 4) === CharacterCodes.e &&
+            (isWhiteSpaceLike(input.charCodeAt(this.position + 5)) || (this.position + 5) >= end))
+          {
             this.position += 5
             debug('<false>')
             return SyntaxSet.FalseKeyword
