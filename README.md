@@ -1,10 +1,12 @@
 # Puff ✨
+## Puff the magical compiler
 
-Puff the magic dragon 🐉
+### Status
 
-## What is Puff?
-
-> TODO
+**Idea stage.** This is an experimental codebase written by a type theory
+new-comer, functional programming novice and also a daytime developer.
+So some of the part will looks cryptic and the quality of code will not be
+promised.
 
 ## Docs
 
@@ -13,10 +15,7 @@ Puff the magic dragon 🐉
   - [Running the app locally](#running-the-app-locally)
 
 ## Contributing
-
 **We heartily welcome any and all contributions**
-
-That being said, this codebase isn't your typical open source project because it's not a library or package with a limited scope—it's our entire product.
 
 ### First time setup
 
