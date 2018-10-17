@@ -7,8 +7,11 @@ const scanner = new Scanner()
 
 scanner.setText(`
 // hello
-///code here
-true`)
+/// code here
+/*
+ adf
+*/
+true false`)
 
 // Iterate through the input string
 debug(scanner)

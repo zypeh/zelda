@@ -46,6 +46,7 @@ export class Scanner {
           while (this.position < end) {
             if (this.position === CharacterCodes.asterisk &&
               (this.position + 1) === CharacterCodes.slash &&
+              (isWhiteSpaceLike(this.position + 2) || this.position >= end) &&
               this.tokState & TokenState.Unterminated)
             {
               this.tokState |= TokenState.Unterminated
