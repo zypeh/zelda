@@ -1,5 +1,5 @@
 import { SyntaxSet } from "./types";
-import { CharacterCodes, isLineBreak, isWhiteSpaceLike } from "./characters";
+import { CharacterCodes, isLineBreak, isWhiteSpaceLike, isWhiteSpaceSingleLine } from "./characters";
 import { TokenState } from "./states";
 
 const debug = require('debug')('compiler:scanner')
@@ -33,6 +33,26 @@ export class Scanner {
 
     const c = input.charCodeAt(this.position)
     switch(c) {
+
+      case CharacterCodes.space:
+      case CharacterCodes.tab:
+      case CharacterCodes.verticalTab:
+      case CharacterCodes.formFeed:
+      case CharacterCodes.nonBreakingSpace:
+      case CharacterCodes.nextLine:
+      case CharacterCodes.ogham:
+      case CharacterCodes.narrowNoBreakSpace:
+      case CharacterCodes.mathematicalSpace:
+      case CharacterCodes.ideographicSpace:
+      case CharacterCodes.byteOrderMark:
+        this.position++
+        while (this.position < end) {
+          if (!isWhiteSpaceSingleLine(input.charCodeAt(this.position)))
+            break
+          this.position++
+        }
+        debug('<space>')
+        return SyntaxSet.WhiteSpaceToken
 
       case CharacterCodes.lineFeed:
       case CharacterCodes.carriageReturn:
