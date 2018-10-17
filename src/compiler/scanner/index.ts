@@ -51,8 +51,7 @@ export class Scanner {
           while (this.position < end) {
 
             if (input.charCodeAt(this.position) === CharacterCodes.asterisk &&
-              input.charCodeAt(this.position + 1) === CharacterCodes.slash &&
-              (isWhiteSpaceLike(input.charCodeAt(this.position + 2)) || (this.position + 2) >= end))
+              input.charCodeAt(this.position + 1) === CharacterCodes.slash)
             {
               this.position += 2
               isCommentClosed = true
@@ -133,6 +132,25 @@ export class Scanner {
           }
           debug(`<string literal isClosed: ${isStringLiteralClosed}>`)
           return SyntaxSet.StringLiteral
+
+        // char literal (naive)
+        case CharacterCodes.singleQuote:
+          // TODO: should have constant width, only 1 char
+          // TODO: should have error message later
+          let isCharLiteralClosed: boolean = false
+          this.position++
+          while (this.position < end) {
+
+            if (input.charCodeAt(this.position) === CharacterCodes.singleQuote) {
+              this.position++
+              isCharLiteralClosed = true
+              break
+            }
+
+            this.position++
+          }
+          debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
+          return SyntaxSet.CharLiteral
 
       /**
        * Unimplemented

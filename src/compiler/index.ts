@@ -10,7 +10,8 @@ scanner.setText(`
 /// code here
 /*123*/
 true false
-"aaa" // what is `)
+"aaa"/*what is*/'a'
+`)
 
 // Iterate through the input string
 debug(scanner)
