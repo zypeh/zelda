@@ -13,6 +13,7 @@ export const enum SyntaxSet {
   Unknown,
   EndOfFileToken,
   NewlineToken,
+  WhiteSpaceToken,
   CommentKeyword,
   BlockCommentKeyword,
   DocCommentKeyword,
