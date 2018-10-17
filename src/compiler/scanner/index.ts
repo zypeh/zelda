@@ -16,6 +16,10 @@ export class Scanner {
     }
   }
 
+  public getTokState(): TokenState {
+    return this.tokState
+  }
+
   public setText(str: string): void {
     this.inputText = str
   }
@@ -42,16 +46,19 @@ export class Scanner {
       case CharacterCodes.slash:
         if (input.charCodeAt(this.position + 1) === CharacterCodes.asterisk) {
           // Comment block
+          this.tokState |= TokenState.Unterminated
           this.position += 2
           while (this.position < end) {
-            if (this.position === CharacterCodes.asterisk &&
-              (this.position + 1) === CharacterCodes.slash &&
-              (isWhiteSpaceLike(this.position + 2) || this.position >= end) &&
-              this.tokState & TokenState.Unterminated)
+
+            if (input.charCodeAt(this.position) === CharacterCodes.asterisk &&
+              input.charCodeAt(this.position + 1) === CharacterCodes.slash &&
+              (isWhiteSpaceLike(input.charCodeAt(this.position + 2)) || (this.position + 2) >= end))
             {
-              this.tokState |= TokenState.Unterminated
+              this.position += 2
+              this.tokState &= ~TokenState.Unterminated
               break
             }
+
             this.position++
           }
           debug('<block comment>')
@@ -86,7 +93,6 @@ export class Scanner {
         }
 
         // true
-        // TODO: handle last token is EOF situation
         case CharacterCodes.t:
           if (input.charCodeAt(this.position + 1) === CharacterCodes.r &&
             input.charCodeAt(this.position + 2) === CharacterCodes.u &&
@@ -99,7 +105,6 @@ export class Scanner {
           }
 
         // false
-        // TODO: handle last token is EOF situation
         case CharacterCodes.f:
           if (input.charCodeAt(this.position + 1) === CharacterCodes.a &&
             input.charCodeAt(this.position + 2) === CharacterCodes.l &&

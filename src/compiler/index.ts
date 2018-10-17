@@ -8,9 +8,7 @@ const scanner = new Scanner()
 scanner.setText(`
 // hello
 /// code here
-/*
- adf
-*/
+/*123*/
 true false`)
 
 // Iterate through the input string
