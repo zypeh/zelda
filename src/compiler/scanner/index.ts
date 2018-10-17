@@ -181,7 +181,8 @@ export class Scanner {
         case CharacterCodes._7:
         case CharacterCodes._8:
         case CharacterCodes._9:
-          let isFloat: boolean = false
+        case CharacterCodes.dot:
+          let isFloat: boolean = c === CharacterCodes.dot
           this.position++
           while (this.position < end) {
             const c = input.charCodeAt(this.position)

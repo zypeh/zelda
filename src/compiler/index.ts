@@ -11,7 +11,7 @@ scanner.setText(`
 /*123*/
 1234
 true            false
-3.14159
+.14159
 "aaa"/*what is*/'a'
 `)
 
