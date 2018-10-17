@@ -1,8 +1,33 @@
+//
+// Copied from Microsoft/Typescript
+//
+
+/** Check if the like break */
 export function isLineBreak(ch: number): boolean {
   return ch === CharacterCodes.lineFeed ||
     ch === CharacterCodes.carriageReturn ||
     ch === CharacterCodes.lineSeparator ||
-    ch === CharacterCodes.paragraphSeparator;
+    ch === CharacterCodes.paragraphSeparator
+}
+
+export function isWhiteSpaceLike(ch: number): boolean {
+  return isWhiteSpaceSingleLine(ch) || isLineBreak(ch)
+}
+
+/** Does not include line breaks. For that, see isWhiteSpaceLike. */
+export function isWhiteSpaceSingleLine(ch: number): boolean {
+  return ch === CharacterCodes.space ||
+      ch === CharacterCodes.tab ||
+      ch === CharacterCodes.verticalTab ||
+      ch === CharacterCodes.formFeed ||
+      ch === CharacterCodes.nonBreakingSpace ||
+      ch === CharacterCodes.nextLine ||
+      ch === CharacterCodes.ogham ||
+      ch >= CharacterCodes.enQuad && ch <= CharacterCodes.zeroWidthSpace ||
+      ch === CharacterCodes.narrowNoBreakSpace ||
+      ch === CharacterCodes.mathematicalSpace ||
+      ch === CharacterCodes.ideographicSpace ||
+      ch === CharacterCodes.byteOrderMark
 }
 
 export const enum CharacterCodes {
@@ -14,6 +39,26 @@ export const enum CharacterCodes {
   lineSeparator = 0x2028,
   paragraphSeparator = 0x2029,
   nextLine = 0x0085,
+
+  // Unicode 3.0 space characters
+  space = 0x0020,   // " "
+  nonBreakingSpace = 0x00A0,   //
+  enQuad = 0x2000,
+  emQuad = 0x2001,
+  enSpace = 0x2002,
+  emSpace = 0x2003,
+  threePerEmSpace = 0x2004,
+  fourPerEmSpace = 0x2005,
+  sixPerEmSpace = 0x2006,
+  figureSpace = 0x2007,
+  punctuationSpace = 0x2008,
+  thinSpace = 0x2009,
+  hairSpace = 0x200A,
+  zeroWidthSpace = 0x200B,
+  narrowNoBreakSpace = 0x202F,
+  ideographicSpace = 0x3000,
+  mathematicalSpace = 0x205F,
+  ogham = 0x1680,
 
   _ = 0x5F,
   $ = 0x24,
