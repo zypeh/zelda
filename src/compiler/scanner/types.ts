@@ -23,4 +23,10 @@ export const enum SyntaxSet {
   CharLiteral,
   AssignKeyword,
   FatArrowKeyword,
+  OpenParenKeyword,
+  CloseParenKeyword,
+  OpenBraceKeyword,
+  CloseBraceKeyword,
+  OpenBracketKeyword,
+  CloseBracketKeyword,
 }
