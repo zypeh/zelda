@@ -24,4 +24,6 @@ export const enum SyntaxSet {
   IntegerLiteral,
   FloatLiteral,
   // ArrowKeyword,
+  AssignKeyword,
+  FatArrowKeyword,
 }
