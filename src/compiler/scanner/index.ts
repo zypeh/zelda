@@ -171,7 +171,7 @@ export class Scanner {
           }
           debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
           return SyntaxSet.CharLiteral
-
+        
         case CharacterCodes._1:
         case CharacterCodes._2:
         case CharacterCodes._3:
@@ -203,6 +203,17 @@ export class Scanner {
             debug(`<int literal>`)
             return SyntaxSet.IntegerLiteral
           }
+        
+        case CharacterCodes.equals:
+          if (input.charCodeAt(this.position + 1) === CharacterCodes.greaterThan) {
+            this.position += 2
+            debug('<fat arrow keyword>')
+            return SyntaxSet.FatArrowKeyword
+          }
+          this.position++
+          debug('<assignment keyword>')
+          return SyntaxSet.AssignKeyword
+        
       /**
        * Unimplemented
        */
