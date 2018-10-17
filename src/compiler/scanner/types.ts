@@ -21,5 +21,6 @@ export const enum SyntaxSet {
   FalseKeyword,
   StringLiteral,
   CharLiteral,
-  // ArrowKeyword,
+  AssignKeyword,
+  FatArrowKeyword,
 }

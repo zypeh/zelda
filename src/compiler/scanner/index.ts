@@ -172,6 +172,16 @@ export class Scanner {
           debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
           return SyntaxSet.CharLiteral
 
+        case CharacterCodes.equals:
+          if (input.charCodeAt(this.position + 1) === CharacterCodes.greaterThan) {
+            this.position += 2
+            debug('<fat arrow keyword>')
+            return SyntaxSet.FatArrowKeyword
+          }
+          this.position++
+          debug('<assignment keyword>')
+          return SyntaxSet.AssignKeyword
+
       /**
        * Unimplemented
        */
