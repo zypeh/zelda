@@ -22,14 +22,12 @@ export interface Token {
  */
 export const enum SyntaxSet {
   Unknown,
-  AssignKeyword,
-  TypeDeclKeyword,
-  TrueKeyword,
-  FalseKeyword,
-  CommentKeyword,
-  DocCommentKeyword,
   EndOfFileToken,
   NewlineToken,
-  // BlockCommentKeyword,
+  CommentKeyword,
+  BlockCommentKeyword,
+  DocCommentKeyword,
+  TrueKeyword,
+  FalseKeyword,
   // ArrowKeyword,
 }

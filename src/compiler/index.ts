@@ -5,7 +5,13 @@ const debug = require('debug')('compiler')
 
 const scanner = new Scanner()
 
-scanner.setText('// hello\n///code here   \n abc')
+scanner.setText(`
+// hello
+///code here
+
+/* abc
+ * abc
+ */`)
 
 // Iterate through the input string
 debug(scanner)

@@ -1,11 +1,13 @@
 import { SyntaxSet } from "./types";
 import { CharacterCodes, isLineBreak } from "./characters";
+import { TokenState } from "./states";
 
 const debug = require('debug')('compiler:scanner')
 
 export class Scanner {
   private inputText: string  = ''
   private position: number = 0
+  private tokState: TokenState = TokenState.None
 
   public createScanner() {
     return {
@@ -38,6 +40,20 @@ export class Scanner {
         return SyntaxSet.NewlineToken
 
       case CharacterCodes.slash:
+        if (input.charCodeAt(this.position + 1) === CharacterCodes.asterisk) {
+          // Comment block
+          this.position += 2
+          while (this.position < end) {
+            if (this.position === CharacterCodes.asterisk || (this.position + 1) === CharacterCodes.slash || this.tokState & TokenState.Unterminated) {
+              this.tokState |= TokenState.Unterminated
+              break
+            }
+            this.position++
+          }
+          debug('<block comment>')
+          return SyntaxSet.BlockCommentKeyword
+        }
+
         if (input.charCodeAt(this.position + 1) === CharacterCodes.slash) {
           if (input.charCodeAt(this.position + 2) === CharacterCodes.slash) {
             // Documentation comment
