@@ -3,11 +3,11 @@ import { Scanner } from './scanner'
 
 const debug = require('debug')('compiler')
 
-const scanner = new Scanner()
+const scanner = new Scanner('examples/Comments.puff')
 
-scanner.setText(`
-1_000.0
-`)
+// scanner.setText(`
+// 1_000.0
+// `)
 
 // Iterate through the input string
 debug(scanner)

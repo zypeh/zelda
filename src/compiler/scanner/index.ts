@@ -7,7 +7,8 @@ import {
     isAlphaNumber,
 } from './characters'
 import { TokenState } from './states'
-
+import * as path from 'path'
+import * as fs from 'fs'
 const debug = require('debug')('compiler:scanner')
 
 export class Scanner {
@@ -15,6 +16,13 @@ export class Scanner {
     /** Current position of the character */
     private pos: number = 0
     private tokState: TokenState = TokenState.None
+    private dir: string
+
+    constructor(dir: string) {
+        const p = path.resolve(__dirname, '../../../../', dir)
+        this.inputText = fs.readFileSync(p).toString('utf-8')
+        this.dir = dir
+    }
 
     public createScanner(input: string | undefined) {
         return {
@@ -25,6 +33,10 @@ export class Scanner {
 
     public getTokState(): TokenState {
         return this.tokState
+    }
+
+    public getDirectory(): string {
+        return this.dir
     }
 
     public setText(str: string): void {
