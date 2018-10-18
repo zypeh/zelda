@@ -1,5 +1,5 @@
-import { SyntaxSet } from './scanner/types';
-import { Scanner } from './scanner';
+import { SyntaxSet } from './scanner/types'
+import { Scanner } from './scanner'
 
 const debug = require('debug')('compiler')
 
