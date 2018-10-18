@@ -1,5 +1,5 @@
 {
-  "extends": "typestrict",
+  "extends": [ "typestrict", "tslint-config-prettier" ],
   "rules": {
     "adjacent-overload-signatures": true,
     "no-namespace": true,
