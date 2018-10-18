@@ -1,5 +1,5 @@
 import { SyntaxSet } from "./types";
-import { CharacterCodes, isLineBreak, isWhiteSpaceLike, isWhiteSpaceSingleLine } from "./characters";
+import { CharacterCodes, isLineBreak, isWhiteSpaceLike, isWhiteSpaceSingleLine, isNumber } from "./characters";
 import { TokenState } from "./states";
 
 const debug = require('debug')('compiler:scanner')
@@ -171,7 +171,39 @@ export class Scanner {
           }
           debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
           return SyntaxSet.CharLiteral
+        
+        case CharacterCodes._1:
+        case CharacterCodes._2:
+        case CharacterCodes._3:
+        case CharacterCodes._4:
+        case CharacterCodes._5:
+        case CharacterCodes._6:
+        case CharacterCodes._7:
+        case CharacterCodes._8:
+        case CharacterCodes._9:
+        case CharacterCodes.dot:
+          let isFloat: boolean = c === CharacterCodes.dot
+          this.position++
+          while (this.position < end) {
+            const c = input.charCodeAt(this.position)
+            const nextC = input.charCodeAt(this.position + 1)
+            this.position++
 
+            if (c === CharacterCodes.dot)
+              isFloat = true
+
+            if (isNumber(c) && !isNumber(nextC) && nextC !== CharacterCodes.dot)
+              break
+          }
+
+          if (isFloat) {
+            debug(`<float literal>`)
+            return SyntaxSet.FloatLiteral
+          } else {
+            debug(`<int literal>`)
+            return SyntaxSet.IntegerLiteral
+          }
+        
         case CharacterCodes.equals:
           if (input.charCodeAt(this.position + 1) === CharacterCodes.greaterThan) {
             this.position += 2
@@ -181,7 +213,7 @@ export class Scanner {
           this.position++
           debug('<assignment keyword>')
           return SyntaxSet.AssignKeyword
-
+        
         case CharacterCodes.openParen:
           this.position++
           debug('<Open Paren keyword>')
@@ -212,14 +244,14 @@ export class Scanner {
           debug('<Close Bracket keyword>')
           return SyntaxSet.CloseBracketKeyword
 
-      /**
-       * Unimplemented
-       */
-      default:
-        debug('<unimplemented> at [' + this.position + ']')
-        this.position++
-        return SyntaxSet.Unknown
-
+        /**
+        * Unimplemented
+        */
+        default:
+          debug('<unimplemented> at [' + this.position + ']')
+          this.position++
+          return SyntaxSet.Unknown
+      
     }
   }
 }

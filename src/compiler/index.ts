@@ -8,6 +8,7 @@ const scanner = new Scanner()
 /*
 // hello
 /// code here
+<<<<<<< HEAD
 /*123
 = false => (aaa)
 "aaa"/*what is'a'
@@ -16,6 +17,11 @@ const scanner = new Scanner()
 // TODO: {true} invalid
 scanner.setText(`
 {aaa}
+/*123*/
+1234
+true            false
+.14159
+"aaa"/*what is*/'a'
 `)
 
 // Iterate through the input string
