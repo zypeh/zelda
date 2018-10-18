@@ -2,9 +2,9 @@ import { SyntaxSet } from './types'
 import {
     CharacterCodes,
     isLineBreak,
-    isWhiteSpaceLike,
     isWhiteSpaceSingleLine,
     isNumber,
+    isAlphaNumber,
 } from './characters'
 import { TokenState } from './states'
 
@@ -12,13 +12,14 @@ const debug = require('debug')('compiler:scanner')
 
 export class Scanner {
     private inputText: string = ''
-    private position: number = 0
+    /** Current position of the character */
+    private pos: number = 0
     private tokState: TokenState = TokenState.None
 
-    public createScanner() {
+    public createScanner(input: string | undefined) {
         return {
-            inputText: this.inputText,
-            position: this.position,
+            inputText: input || '',
+            pos: this.pos,
         }
     }
 
@@ -34,9 +35,9 @@ export class Scanner {
         const input = this.inputText
         const end = this.inputText.length
 
-        if (this.position >= end) return SyntaxSet.EndOfFileToken
+        if (this.pos >= end) return SyntaxSet.EndOfFileToken
 
-        const c = input.charCodeAt(this.position)
+        const c = input.charCodeAt(this.pos)
         switch (c) {
             case CharacterCodes.space:
             case CharacterCodes.tab:
@@ -49,10 +50,10 @@ export class Scanner {
             case CharacterCodes.mathematicalSpace:
             case CharacterCodes.ideographicSpace:
             case CharacterCodes.byteOrderMark:
-                this.position++
-                while (this.position < end) {
-                    if (!isWhiteSpaceSingleLine(input.charCodeAt(this.position))) break
-                    this.position++
+                this.pos++
+                while (this.pos < end) {
+                    if (!isWhiteSpaceSingleLine(input.charCodeAt(this.pos))) break
+                    this.pos++
                 }
                 debug('<space>')
                 return SyntaxSet.WhiteSpaceToken
@@ -63,49 +64,49 @@ export class Scanner {
             case CharacterCodes.paragraphSeparator:
                 // Newline
                 debug('<newline>')
-                this.position++
+                this.pos++
                 return SyntaxSet.NewlineToken
 
             case CharacterCodes.slash:
-                if (input.charCodeAt(this.position + 1) === CharacterCodes.asterisk) {
+                if (input.charCodeAt(this.pos + 1) === CharacterCodes.asterisk) {
                     // Comment block
                     let isCommentClosed: boolean = false
-                    this.position += 2
-                    while (this.position < end) {
+                    this.pos += 2
+                    while (this.pos < end) {
                         if (
-                            input.charCodeAt(this.position) === CharacterCodes.asterisk &&
-                            input.charCodeAt(this.position + 1) === CharacterCodes.slash
+                            input.charCodeAt(this.pos) === CharacterCodes.asterisk &&
+                            input.charCodeAt(this.pos + 1) === CharacterCodes.slash
                         ) {
-                            this.position += 2
+                            this.pos += 2
                             isCommentClosed = true
                             break
                         }
 
-                        this.position++
+                        this.pos++
                     }
                     debug(`<block comment isClosed: ${isCommentClosed}>`)
                     return SyntaxSet.BlockCommentKeyword
                 }
 
-                if (input.charCodeAt(this.position + 1) === CharacterCodes.slash) {
-                    if (input.charCodeAt(this.position + 2) === CharacterCodes.slash) {
+                if (input.charCodeAt(this.pos + 1) === CharacterCodes.slash) {
+                    if (input.charCodeAt(this.pos + 2) === CharacterCodes.slash) {
                         // Documentation comment
-                        this.position += 3
-                        while (this.position < end) {
-                            if (isLineBreak(input.charCodeAt(this.position))) break
+                        this.pos += 3
+                        while (this.pos < end) {
+                            if (isLineBreak(input.charCodeAt(this.pos))) break
 
-                            this.position++
+                            this.pos++
                         }
                         debug('<doc comment>')
                         return SyntaxSet.DocCommentKeyword
                     }
 
                     // Single-line comment
-                    this.position += 2
-                    while (this.position < end) {
-                        if (isLineBreak(input.charCodeAt(this.position))) break
+                    this.pos += 2
+                    while (this.pos < end) {
+                        if (isLineBreak(input.charCodeAt(this.pos))) break
 
-                        this.position++
+                        this.pos++
                     }
                     debug('<comment>')
                     return SyntaxSet.CommentKeyword
@@ -114,13 +115,12 @@ export class Scanner {
             // true
             case CharacterCodes.t:
                 if (
-                    input.charCodeAt(this.position + 1) === CharacterCodes.r &&
-                    input.charCodeAt(this.position + 2) === CharacterCodes.u &&
-                    input.charCodeAt(this.position + 3) === CharacterCodes.e &&
-                    (isWhiteSpaceLike(input.charCodeAt(this.position + 4)) ||
-                        this.position + 4 >= end)
+                    input.charCodeAt(this.pos + 1) === CharacterCodes.r &&
+                    input.charCodeAt(this.pos + 2) === CharacterCodes.u &&
+                    input.charCodeAt(this.pos + 3) === CharacterCodes.e &&
+                    (!isAlphaNumber(input.charCodeAt(this.pos + 4)) || this.pos + 4 >= end)
                 ) {
-                    this.position += 4
+                    this.pos += 4
                     debug('<true>')
                     return SyntaxSet.TrueKeyword
                 }
@@ -128,14 +128,13 @@ export class Scanner {
             // false
             case CharacterCodes.f:
                 if (
-                    input.charCodeAt(this.position + 1) === CharacterCodes.a &&
-                    input.charCodeAt(this.position + 2) === CharacterCodes.l &&
-                    input.charCodeAt(this.position + 3) === CharacterCodes.s &&
-                    input.charCodeAt(this.position + 4) === CharacterCodes.e &&
-                    (isWhiteSpaceLike(input.charCodeAt(this.position + 5)) ||
-                        this.position + 5 >= end)
+                    input.charCodeAt(this.pos + 1) === CharacterCodes.a &&
+                    input.charCodeAt(this.pos + 2) === CharacterCodes.l &&
+                    input.charCodeAt(this.pos + 3) === CharacterCodes.s &&
+                    input.charCodeAt(this.pos + 4) === CharacterCodes.e &&
+                    (!isAlphaNumber(input.charCodeAt(this.pos + 5)) || this.pos + 5 >= end)
                 ) {
-                    this.position += 5
+                    this.pos += 5
                     debug('<false>')
                     return SyntaxSet.FalseKeyword
                 }
@@ -143,15 +142,15 @@ export class Scanner {
             // string literal
             case CharacterCodes.doubleQuote:
                 let isStringLiteralClosed: boolean = false
-                this.position++
-                while (this.position < end) {
-                    if (input.charCodeAt(this.position) === CharacterCodes.doubleQuote) {
-                        this.position++
+                this.pos++
+                while (this.pos < end) {
+                    if (input.charCodeAt(this.pos) === CharacterCodes.doubleQuote) {
+                        this.pos++
                         isStringLiteralClosed = true
                         break
                     }
 
-                    this.position++
+                    this.pos++
                 }
                 debug(`<string literal isClosed: ${isStringLiteralClosed}>`)
                 return SyntaxSet.StringLiteral
@@ -161,19 +160,20 @@ export class Scanner {
                 // TODO: should have constant width, only 1 char
                 // TODO: should have error message later
                 let isCharLiteralClosed: boolean = false
-                this.position++
-                while (this.position < end) {
-                    if (input.charCodeAt(this.position) === CharacterCodes.singleQuote) {
-                        this.position++
+                this.pos++
+                while (this.pos < end) {
+                    if (input.charCodeAt(this.pos) === CharacterCodes.singleQuote) {
+                        this.pos++
                         isCharLiteralClosed = true
                         break
                     }
 
-                    this.position++
+                    this.pos++
                 }
                 debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
                 return SyntaxSet.CharLiteral
 
+            case CharacterCodes._0:
             case CharacterCodes._1:
             case CharacterCodes._2:
             case CharacterCodes._3:
@@ -183,65 +183,87 @@ export class Scanner {
             case CharacterCodes._7:
             case CharacterCodes._8:
             case CharacterCodes._9:
-            case CharacterCodes.dot:
-                let isFloat: boolean = c === CharacterCodes.dot
-                this.position++
-                while (this.position < end) {
-                    const ch = input.charCodeAt(this.position)
-                    const nextC = input.charCodeAt(this.position + 1)
-                    this.position++
+                // Numeric literal
+                this.pos++
+                let isFloat: boolean = false
 
-                    if (ch === CharacterCodes.dot) isFloat = true
+                while (this.pos < end) {
+                    // Parsing dots in numeric literal
+                    if (input.charCodeAt(this.pos) === CharacterCodes.dot) {
+                        if (isNumber(input.charCodeAt(this.pos + 1))) {
+                            if (isFloat == true) {
+                                // TODO: should have error message, in typescript it is called DiagnosisMessage
+                                debug(`Error parsing decimal number at [${this.pos}]`)
+                                break
+                            } else {
+                                isFloat = true
+                            }
+                            this.pos++
+                            continue
+                        } else {
+                            // TODO: should have error message, in typescript it is called DiagnosisMessage
+                            debug(`'.' should be between numbers at [${this.pos}]`)
+                            this.pos++
+                            continue
+                        }
+                    }
 
-                    // TODO: potential bug, if there are several dot in a numberic literal
-                    if (isNumber(ch) && !isNumber(nextC) && nextC !== CharacterCodes.dot) break
+                    // Parsing underscore in numeric literal
+                    if (input.charCodeAt(this.pos) === CharacterCodes._) {
+                        if (isNumber(input.charCodeAt(this.pos + 1))) {
+                            this.pos++
+                            continue
+                        } else {
+                            // TODO: should have error message, in typescript it is called DiagnosisMessage
+                            debug(`'_' should placed between numbers at [${this.pos}]`)
+                            this.pos++
+                            continue
+                        }
+                    }
+
+                    if (!isNumber(input.charCodeAt(this.pos))) break
+                    this.pos++
                 }
-
-                if (isFloat) {
-                    debug(`<float literal>`)
-                    return SyntaxSet.FloatLiteral
-                } else {
-                    debug(`<int literal>`)
-                    return SyntaxSet.IntegerLiteral
-                }
+                debug(`<numeric literal isFloat: ${isFloat} >`)
+                return SyntaxSet.NumericLiteral
 
             case CharacterCodes.equals:
-                if (input.charCodeAt(this.position + 1) === CharacterCodes.greaterThan) {
-                    this.position += 2
+                if (input.charCodeAt(this.pos + 1) === CharacterCodes.greaterThan) {
+                    this.pos += 2
                     debug('<fat arrow keyword>')
                     return SyntaxSet.FatArrowKeyword
                 }
-                this.position++
+                this.pos++
                 debug('<assignment keyword>')
                 return SyntaxSet.AssignKeyword
 
             case CharacterCodes.openParen:
-                this.position++
+                this.pos++
                 debug('<Open Paren keyword>')
                 return SyntaxSet.OpenParenKeyword
 
             case CharacterCodes.closeParen:
-                this.position++
+                this.pos++
                 debug('<Close Paren keyword>')
                 return SyntaxSet.CloseParenKeyword
 
             case CharacterCodes.openBrace:
-                this.position++
+                this.pos++
                 debug('<Open Brace keyword>')
                 return SyntaxSet.OpenBraceKeyword
 
             case CharacterCodes.closeBrace:
-                this.position++
+                this.pos++
                 debug('<Close Brace keyword>')
                 return SyntaxSet.CloseBraceKeyword
 
             case CharacterCodes.openBracket:
-                this.position++
+                this.pos++
                 debug('<Open Bracket keyword>')
                 return SyntaxSet.OpenBracketKeyword
 
             case CharacterCodes.closeBracket:
-                this.position++
+                this.pos++
                 debug('<Close Bracket keyword>')
                 return SyntaxSet.CloseBracketKeyword
 
@@ -249,8 +271,8 @@ export class Scanner {
              * Unimplemented
              */
             default:
-                debug('<unimplemented> at [' + this.position + ']')
-                this.position++
+                debug('<unimplemented> at [' + this.pos + ']')
+                this.pos++
                 return SyntaxSet.Unknown
         }
     }

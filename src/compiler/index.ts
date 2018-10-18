@@ -5,23 +5,8 @@ const debug = require('debug')('compiler')
 
 const scanner = new Scanner()
 
-/*
-// hello
-/// code here
-<<<<<<< HEAD
-/*123
-= false => (aaa)
-"aaa"/*what is'a'
-*/
-
-// TODO: {true} invalid
 scanner.setText(`
-{aaa}
-/*123*/
-1234
-true            false
-.14159
-"aaa"/*what is*/'a'
+1_000.0
 `)
 
 // Iterate through the input string
