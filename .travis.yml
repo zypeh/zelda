@@ -10,6 +10,7 @@ node_js:
 sudo: false
 
 install:
+  - cd puff
   - npm install
   - npm run build
   - node ./built/local/puffc/index.js
