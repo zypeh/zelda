@@ -26,4 +26,10 @@ export const enum SyntaxSet {
   // ArrowKeyword,
   AssignKeyword,
   FatArrowKeyword,
+  OpenParenKeyword,
+  CloseParenKeyword,
+  OpenBraceKeyword,
+  CloseBraceKeyword,
+  OpenBracketKeyword,
+  CloseBracketKeyword,
 }

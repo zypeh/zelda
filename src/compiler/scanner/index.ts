@@ -214,14 +214,44 @@ export class Scanner {
           debug('<assignment keyword>')
           return SyntaxSet.AssignKeyword
         
-      /**
-       * Unimplemented
-       */
-      default:
-        debug('<unimplemented> at [' + this.position + ']')
-        this.position++
-        return SyntaxSet.Unknown
+        case CharacterCodes.openParen:
+          this.position++
+          debug('<Open Paren keyword>')
+          return SyntaxSet.OpenParenKeyword
 
+        case CharacterCodes.closeParen:
+          this.position++
+          debug('<Close Paren keyword>')
+          return SyntaxSet.CloseParenKeyword
+
+        case CharacterCodes.openBrace:
+          this.position++
+          debug('<Open Brace keyword>')
+          return SyntaxSet.OpenBraceKeyword
+
+        case CharacterCodes.closeBrace:
+          this.position++
+          debug('<Close Brace keyword>')
+          return SyntaxSet.CloseBraceKeyword
+
+        case CharacterCodes.openBracket:
+          this.position++
+          debug('<Open Bracket keyword>')
+          return SyntaxSet.OpenBracketKeyword
+
+        case CharacterCodes.closeBracket:
+          this.position++
+          debug('<Close Bracket keyword>')
+          return SyntaxSet.CloseBracketKeyword
+
+        /**
+        * Unimplemented
+        */
+        default:
+          debug('<unimplemented> at [' + this.position + ']')
+          this.position++
+          return SyntaxSet.Unknown
+      
     }
   }
 }
