@@ -1,5 +1,8 @@
 # Puff ✨
-## Puff the magical compiler
+
+[![Travis (.org)](https://img.shields.io/travis/zypeh/puff.svg?style=flat-square)](https://travis-ci.org/zypeh/puff)
+
+Puff the magical compiler.
 
 ### Status
 
