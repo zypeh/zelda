@@ -1,1 +1,1 @@
-{ "extends": "typestrict" }
+{ "extends": [ "typestrict", "tslint-config-prettier" ] }
