@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - 'stable'
+  - '8'
+  - '9'
+  - '10'
+  - '10.10'
+
+sudo: false
+
+install:
+  - npm install
+  - npm run build
+  - ls
+  - node ./built/local/puffc/index.js
+
+cache:
+  directories:
+    - node_modules
