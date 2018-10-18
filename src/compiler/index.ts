@@ -1,4 +1,29 @@
-namespace puff {
-  export const versionMajorMinor = [ 0, 0, 1 ]
-  export const version = `${versionMajorMinor[0]}.${versionMajorMinor[1]}.${versionMajorMinor[2]}-dev`
-}
+import { SyntaxSet } from './scanner/types';
+import { Scanner } from './scanner';
+
+const debug = require('debug')('compiler')
+
+const scanner = new Scanner()
+
+/*
+// hello
+/// code here
+<<<<<<< HEAD
+/*123
+= false => (aaa)
+"aaa"/*what is'a'
+*/
+
+// TODO: {true} invalid
+scanner.setText(`
+{aaa}
+/*123*/
+1234
+true            false
+.14159
+"aaa"/*what is*/'a'
+`)
+
+// Iterate through the input string
+debug(scanner)
+for (let token = scanner.scan(); token != SyntaxSet.EndOfFileToken; token = scanner.scan()) {}
