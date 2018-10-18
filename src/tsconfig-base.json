@@ -27,7 +27,5 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true
     },
-    "exclude": [
-      "examples",
-    ]
+    "exclude": ["examples"]
 }

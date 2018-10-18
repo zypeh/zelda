@@ -1,6 +1,6 @@
 {
-  "extends": "../tsconfig-base",
-  "compilerOptions": {
-    "outDir": "../../built/local"
-  }
+    "extends": "../tsconfig-base",
+    "compilerOptions": {
+        "outDir": "../../built/local"
+    }
 }

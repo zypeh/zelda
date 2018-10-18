@@ -1,16 +1,12 @@
-import { SyntaxSet } from './scanner/types';
-import { Scanner } from './scanner';
+import { SyntaxSet } from './scanner/types'
+import { Scanner } from './scanner'
 
 const debug = require('debug')('compiler')
 
 const scanner = new Scanner()
 
 scanner.setText(`
-// hello
-/// code here
-/*123*/
-true            false
-"aaa"/*what is*/'a'
+1_000.0
 `)
 
 // Iterate through the input string
