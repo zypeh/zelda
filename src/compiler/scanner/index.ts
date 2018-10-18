@@ -171,7 +171,7 @@ export class Scanner {
           }
           debug(`<char literal isClosed: ${isCharLiteralClosed}>`)
           return SyntaxSet.CharLiteral
-        
+
         case CharacterCodes._1:
         case CharacterCodes._2:
         case CharacterCodes._3:
@@ -192,6 +192,7 @@ export class Scanner {
             if (c === CharacterCodes.dot)
               isFloat = true
 
+            // TODO: potential bug, if there are several dot in a numberic literal
             if (isNumber(c) && !isNumber(nextC) && nextC !== CharacterCodes.dot)
               break
           }
@@ -203,7 +204,7 @@ export class Scanner {
             debug(`<int literal>`)
             return SyntaxSet.IntegerLiteral
           }
-        
+
         case CharacterCodes.equals:
           if (input.charCodeAt(this.position + 1) === CharacterCodes.greaterThan) {
             this.position += 2
@@ -213,7 +214,7 @@ export class Scanner {
           this.position++
           debug('<assignment keyword>')
           return SyntaxSet.AssignKeyword
-        
+
         case CharacterCodes.openParen:
           this.position++
           debug('<Open Paren keyword>')
@@ -251,7 +252,7 @@ export class Scanner {
           debug('<unimplemented> at [' + this.position + ']')
           this.position++
           return SyntaxSet.Unknown
-      
+
     }
   }
 }
