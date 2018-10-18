@@ -14,6 +14,11 @@ export function isWhiteSpaceLike(ch: number): boolean {
   return isWhiteSpaceSingleLine(ch) || isLineBreak(ch)
 }
 
+export function isNumber(ch: number): boolean {
+  return ch >= CharacterCodes._0 &&
+    ch <= CharacterCodes._9
+}
+
 /** Does not include line breaks. For that, see isWhiteSpaceLike. */
 export function isWhiteSpaceSingleLine(ch: number): boolean {
   return ch === CharacterCodes.space ||

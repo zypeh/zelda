@@ -9,7 +9,9 @@ scanner.setText(`
 // hello
 /// code here
 /*123*/
+1234
 true            false
+.14159
 "aaa"/*what is*/'a'
 `)
 
