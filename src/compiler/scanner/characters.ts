@@ -17,17 +17,30 @@ export function isWhiteSpaceLike(ch: number): boolean {
 /** Does not include line breaks. For that, see isWhiteSpaceLike. */
 export function isWhiteSpaceSingleLine(ch: number): boolean {
   return ch === CharacterCodes.space ||
-      ch === CharacterCodes.tab ||
-      ch === CharacterCodes.verticalTab ||
-      ch === CharacterCodes.formFeed ||
-      ch === CharacterCodes.nonBreakingSpace ||
-      ch === CharacterCodes.nextLine ||
-      ch === CharacterCodes.ogham ||
-      ch >= CharacterCodes.enQuad && ch <= CharacterCodes.zeroWidthSpace ||
-      ch === CharacterCodes.narrowNoBreakSpace ||
-      ch === CharacterCodes.mathematicalSpace ||
-      ch === CharacterCodes.ideographicSpace ||
-      ch === CharacterCodes.byteOrderMark
+    ch === CharacterCodes.tab ||
+    ch === CharacterCodes.verticalTab ||
+    ch === CharacterCodes.formFeed ||
+    ch === CharacterCodes.nonBreakingSpace ||
+    ch === CharacterCodes.nextLine ||
+    ch === CharacterCodes.ogham ||
+    ch >= CharacterCodes.enQuad && ch <= CharacterCodes.zeroWidthSpace ||
+    ch === CharacterCodes.narrowNoBreakSpace ||
+    ch === CharacterCodes.mathematicalSpace ||
+    ch === CharacterCodes.ideographicSpace ||
+    ch === CharacterCodes.byteOrderMark
+}
+
+export function isAlphaNumber(ch: number): boolean {
+  return isAlphabet(ch) || isNumber(ch)
+}
+
+export function isAlphabet(ch: number): boolean {
+  return (ch >= CharacterCodes.a && ch <= CharacterCodes.z) ||
+    (ch >= CharacterCodes.A && ch <= CharacterCodes.Z)
+}
+
+export function isNumber(ch: number): boolean {
+  return ch >= CharacterCodes._0 && ch <= CharacterCodes._9
 }
 
 export const enum CharacterCodes {
