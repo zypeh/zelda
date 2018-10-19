@@ -1,7 +1,9 @@
-from scanner import hello # TODO: fix the pylint on vscode-python
+from scanner import hello
+
 
 def main():
     print("Puffc")
+
 
 if __name__ == "__main__":
     main()
