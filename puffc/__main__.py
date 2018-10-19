@@ -1,10 +1,6 @@
-from scanner import hello
-
-
-def main():
-    print("Puffc")
+from scanner.scanner import Scanner
 
 
 if __name__ == "__main__":
-    main()
-    hello()
+    scanner = Scanner(inputText="happy new year")
+    scanner.scan()
