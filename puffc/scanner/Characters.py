@@ -1,38 +1,38 @@
-from enum import Enum
+from enum import IntEnum
 
 
-class Character(Enum):
-    NULLCHARACTER = 0
-    MAXASCIICHARACTER = 0x7f
+class Character(IntEnum):
+    NULL_CHARACTER = 0
+    MAX_ASCII_CHARACTER = 0x7f
 
-    LINEFEED = 0x0a  # \n
-    CARRIAGERETURN = 0x0d  # \r
-    LINESEPARATOR = 0x2028
-    PARAGRAPHSEPARATOR = 0x2029
-    NEXTLINE = 0x0085
+    LINE_FEED = 0x0a  # \n
+    CARRIAGE_RETURN = 0x0d  # \r
+    LINE_SEPARATOR = 0x2028
+    PARAGRAPH_SEPARATOR = 0x2029
+    NEXT_LINE = 0x0085
 
     # Unicode 3.0 space characters
     SPACE = 0x0020  # " "
-    NONBREAKINGSPACE = 0x00a0
-    ENQUAD = 0x2000
-    EMQUAD = 0x2001
-    ENSPACE = 0x2002
-    EMSPACE = 0x2003
-    THREEPEREMSPACE = 0x2004
-    FOURPEREMSPACE = 0x2005
-    SIXPEREMSPACE = 0x2006
-    FIGURESPACE = 0x2007
-    PUNCTUATIONSPACE = 0x2008
-    THINSPACE = 0x2009
-    HAIRSPACE = 0x200a
-    ZEROWIDTHSPACE = 0x200b
-    NARROWNOBREAKSPACE = 0x202f
-    IDEOGRAPHICSPACE = 0x3000
-    MATHEMATICALSPACE = 0x205f
+    NON_BREAKING_SPACE = 0x00a0
+    EN_QUAD = 0x2000
+    EM_QUAD = 0x2001
+    EN_SPACE = 0x2002
+    EM_SPACE = 0x2003
+    THREE_PER_EM_SPACE = 0x2004
+    FOUR_PER_EM_SPACE = 0x2005
+    SIX_PER_EM_SPACE = 0x2006
+    FIGURE_SPACE = 0x2007
+    PUNCTUATION_SPACE = 0x2008
+    THIN_SPACE = 0x2009
+    HAIR_SPACE = 0x200a
+    ZERO_WIDTH_SPACE = 0x200b
+    NARROW_NO_BREAK_SPACE = 0x202f
+    IDEOGRAPHIC_SPACE = 0x3000
+    MATHEMATICAL_SPACE = 0x205f
     OGHAM = 0x1680
 
     _ = 0x5f
-    $ = 0x24
+    DOLLAR = 0x24
 
     _0 = 0x30
     _1 = 0x31
@@ -45,32 +45,32 @@ class Character(Enum):
     _8 = 0x38
     _9 = 0x39
 
-    A = 0x61
-    B = 0x62
-    C = 0x63
-    D = 0x64
-    E = 0x65
-    F = 0x66
-    G = 0x67
-    H = 0x68
-    I = 0x69
-    J = 0x6a
-    K = 0x6b
-    L = 0x6c
-    M = 0x6d
-    N = 0x6e
-    O = 0x6f
-    P = 0x70
-    Q = 0x71
-    R = 0x72
-    S = 0x73
-    T = 0x74
-    U = 0x75
-    V = 0x76
-    W = 0x77
-    X = 0x78
-    Y = 0x79
-    Z = 0x7a
+    a = 0x61
+    b = 0x62
+    c = 0x63
+    d = 0x64
+    e = 0x65
+    f = 0x66
+    g = 0x67
+    h = 0x68
+    i = 0x69
+    j = 0x6a
+    k = 0x6b
+    l = 0x6c
+    m = 0x6d
+    n = 0x6e
+    o = 0x6f
+    p = 0x70
+    q = 0x71
+    r = 0x72
+    s = 0x73
+    t = 0x74
+    u = 0x75
+    v = 0x76
+    w = 0x77
+    x = 0x78
+    y = 0x79
+    z = 0x7a
 
     A = 0x41
     B = 0x42
@@ -106,32 +106,36 @@ class Character(Enum):
     BACKTICK = 0x60  # `
     BAR = 0x7c  # |
     CARET = 0x5e  # ^
-    CLOSEBRACE = 0x7d  # }
-    CLOSEBRACKET = 0x5d  # ]
-    CLOSEPAREN = 0x29  # )
+    CLOSE_BRACE = 0x7d  # }
+    CLOSE_BRACKET = 0x5d  # ]
+    CLOSE_PAREN = 0x29  # )
     COLON = 0x3a  # :
     COMMA = 0x2c
     DOT = 0x2e  # .
-    DOUBLEQUOTE = 0x22  # "
+    DOUBLE_QUOTE = 0x22  # "
     EQUALS = 0x3d  # =
     EXCLAMATION = 0x21  # !
-    GREATERTHAN = 0x3e  # >
+    GREATER_THAN = 0x3e  # >
     HASH = 0x23
-    LESSTHAN = 0x3c  # <
+    LESS_THAN = 0x3c  # <
     MINUS = 0x2d  # -
-    OPENBRACE = 0x7b  # {
-    OPENBRACKET = 0x5b  # [
-    OPENPAREN = 0x28  # (
+    OPEN_BRACE = 0x7b  # {
+    OPEN_BRACKET = 0x5b  # [
+    OPEN_PAREN = 0x28  # (
     PERCENT = 0x25  # %
     PLUS = 0x2b  # +
     QUESTION = 0x3f  # ?
     SEMICOLON = 0x3b  # ;
-    SINGLEQUOTE = 0x27  # '
+    SINGLE_QUOTE = 0x27  # '
     SLASH = 0x2f  # /
     TILDE = 0x7e  # ~
 
     BACKSPACE = 0x08  # \b
-    FORMFEED = 0x0c  # \f
-    BYTEORDERMARK = 0xfeff
+    FORM_FEED = 0x0c  # \f
+    BYTE_ORDER_MARK = 0xfeff
     TAB = 0x09  # \t
-    VERTICALTAB = 0x0b  # \v
+    VERTICAL_TAB = 0x0b  # \v
+
+
+def isNumber(num) -> bool:
+    return num >= Character._0 and num <= Character._9

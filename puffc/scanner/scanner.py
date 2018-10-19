@@ -1,5 +1,6 @@
 # from . import Characters
 from .Tokens import Token
+from .Characters import Character, isNumber
 
 
 class Scanner:
@@ -16,7 +17,7 @@ class Scanner:
         self.filepath = filepath
         self.inputText = inputText
         self.pos = 0
-        self.len = 0
+        self.len = len(inputText)
 
     def setText(self, inputText: str) -> None:
         """
@@ -33,4 +34,36 @@ class Scanner:
             return Token.EOF
 
         c = ord(self.inputText[self.pos])
-        print(c)
+
+        if isNumber(c):
+            token = self.scanNumber()
+            return token
+
+        self.pos += 1
+
+    def scanNumber(self) -> Token:
+        """
+        Scan the number and returning the enum token
+        """
+        isFloat = False
+
+        while self.pos < self.len:
+            self.pos += 1
+            c = ord(self.inputText[self.pos])
+
+            if c == Character.DOT:
+                if not isFloat:
+                    isFloat = True
+                else:
+                    assert f"Error parsing decimal number at [{self.pos}]"
+
+            if c == Character._ and not isNumber(ord(self.inputText[self.pos + 1])):
+                assert f"Error parsing underscore at [{self.pos}]"
+
+            if not isNumber(c) and c != Character._:
+                # self.pos -= 1
+                break
+
+        print(f"<numeric literal isFloat: {isFloat}>")
+        return Token.NUMERIC
+        # print(c)
