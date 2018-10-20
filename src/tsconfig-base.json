@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
         "pretty": true,
-        "target": "es5",
-        "lib": [ "es2015" ],
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "esnext",
         "rootDir": ".",
-        "outDir": "../dist",
 
         "declaration": true,
         "declarationMap": true,
@@ -27,7 +27,5 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true
     },
-    "exclude": [
-      "examples",
-    ]
+    "exclude": ["examples"]
 }

@@ -1,0 +1,5 @@
+foo = true
+baz = false
+buzz: Bool -> Bool
+
+foo : Bool = true

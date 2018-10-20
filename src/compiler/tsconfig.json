@@ -1,11 +1,6 @@
 {
-  "extends": "../tsconfig-base",
-  "compilerOptions": {
-      "outFile": "../../built/local/compiler.js"
-  },
-
-  "references": [],
-  "files": [
-    "index.ts"
-  ]
+    "extends": "../tsconfig-base",
+    "compilerOptions": {
+        "outDir": "../../built/local"
+    }
 }
