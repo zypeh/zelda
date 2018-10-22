@@ -36,6 +36,7 @@ class Scanner:
         c = ord(self.inputText[self.pos])
 
         if isNumber(c):
+            self.pos += 1
             token = self.scanNumber()
             return token
 
@@ -48,21 +49,21 @@ class Scanner:
         isFloat = False
 
         while self.pos < self.len:
-            self.pos += 1
             c = ord(self.inputText[self.pos])
 
             if c == Character.DOT:
                 if not isFloat:
                     isFloat = True
                 else:
-                    assert f"Error parsing decimal number at [{self.pos}]"
+                    assert False, f"Error parsing decimal number at [{self.pos}]"
 
-            if c == Character._ and not isNumber(ord(self.inputText[self.pos + 1])):
-                assert f"Error parsing underscore at [{self.pos}]"
+            if (c == Character.DOT or c == Character._) and not isNumber(ord(self.inputText[self.pos + 1])):
+                assert False, f"Error parsing underscore at [{self.pos}]"
 
-            if not isNumber(c) and c != Character._:
-                # self.pos -= 1
+            if not isNumber(c) and c != Character._ and c != Character.DOT:
                 break
+
+            self.pos += 1
 
         print(f"<numeric literal isFloat: {isFloat}>")
         return Token.NUMERIC
