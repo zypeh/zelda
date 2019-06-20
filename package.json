@@ -1,0 +1,28 @@
+{
+  "name": "zelda",
+  "version": "0.1.0",
+  "description": "A bootstrap compiler for kyuu programming language",
+  "repository": "git@github.com:kyuu-lang/raw.git",
+  "author": "zypeh <zypeh.geek@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "watch": "tsc --build --watch ./src/tsconfig.json",
+    "build": "tsc --build ./src/tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-sonarjs": "^0.4.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "commander": "^2.20.0",
+    "debug": "^4.1.0"
+  }
+}

@@ -1,11 +1,5 @@
 import { SyntaxSet } from './types'
-import {
-    CharacterCodes,
-    isLineBreak,
-    isWhiteSpaceSingleLine,
-    isNumber,
-    isAlphaNumber,
-} from './characters'
+import { CharacterCodes, isLineBreak, isWhiteSpaceSingleLine, isNumber, isAlphaNumber } from './characters'
 import { TokenState } from './states'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -18,13 +12,13 @@ export class Scanner {
     private tokState: TokenState = TokenState.None
     private dir: string
 
-    constructor(dir: string) {
+    public constructor(dir: string) {
         const p = path.resolve(__dirname, '../../../../', dir)
         this.inputText = fs.readFileSync(p).toString('utf-8')
         this.dir = dir
     }
 
-    public createScanner(input: string | undefined) {
+    public createScanner(input: string | undefined): { inputText: string; pos: number } {
         return {
             inputText: input || '',
             pos: this.pos,
@@ -82,7 +76,7 @@ export class Scanner {
             case CharacterCodes.slash:
                 if (input.charCodeAt(this.pos + 1) === CharacterCodes.asterisk) {
                     // Comment block
-                    let isCommentClosed: boolean = false
+                    let isCommentClosed = false
                     this.pos += 2
                     while (this.pos < end) {
                         if (
@@ -153,7 +147,7 @@ export class Scanner {
 
             // string literal
             case CharacterCodes.doubleQuote:
-                let isStringLiteralClosed: boolean = false
+                let isStringLiteralClosed = false
                 this.pos++
                 while (this.pos < end) {
                     if (input.charCodeAt(this.pos) === CharacterCodes.doubleQuote) {
@@ -171,7 +165,7 @@ export class Scanner {
             case CharacterCodes.singleQuote:
                 // TODO: should have constant width, only 1 char
                 // TODO: should have error message later
-                let isCharLiteralClosed: boolean = false
+                let isCharLiteralClosed = false
                 this.pos++
                 while (this.pos < end) {
                     if (input.charCodeAt(this.pos) === CharacterCodes.singleQuote) {
@@ -197,7 +191,7 @@ export class Scanner {
             case CharacterCodes._9:
                 // Numeric literal
                 this.pos++
-                let isFloat: boolean = false
+                let isFloat = false
 
                 while (this.pos < end) {
                     // Parsing dots in numeric literal

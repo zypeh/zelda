@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "/Users/jeff/.local/share/virtualenvs/puff-dvdg768v/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
@@ -11,3 +12,21 @@
     "editor.tabSize": 4
 >>>>>>> ffa4dcb525202df6a12392231146a6df71fe7de5
 }
+=======
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+        "javascript",
+        {
+            "language": "typescript",
+            "autoFix": true
+        }
+    ],
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.formatOnSave": false,
+    },
+    "[typescript]": {
+        "editor.formatOnSave": false,
+    }
+}
+>>>>>>> 4f8d1bc4201c89be3ff3c646a6c1367f71f9e6c1

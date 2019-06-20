@@ -3,3 +3,5 @@
 *.o
 .python-version
 __pycache__
+built/
+node_modules

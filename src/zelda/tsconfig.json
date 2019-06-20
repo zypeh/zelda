@@ -1,0 +1,8 @@
+{
+    "extends": "../tsconfig-base",
+    "compilerOptions": {
+        "outDir": "../../built/local"
+    },
+    "files": ["index.ts"],
+    "references": [{ "path": "../compiler" }]
+}
