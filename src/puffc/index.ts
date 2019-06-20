@@ -5,7 +5,7 @@ import * as path from 'path'
 
 const debug = require('debug')('puffc')
 
-function main() {
+function main(): void {
     const example = path.resolve(__dirname, '../../../', 'examples/a.txt')
     debug(fs.readFileSync(example).toString('binary'))
 }
