@@ -1,8 +1,8 @@
 {
-  "name": "puff",
+  "name": "zelda",
   "version": "0.1.0",
-  "description": "Puff the magic programming language",
-  "repository": "git@github.com:zypeh/raw.git",
+  "description": "A bootstrap compiler for kyuu programming language",
+  "repository": "git@github.com:kyuu-lang/raw.git",
   "author": "zypeh <zypeh.geek@gmail.com>",
   "license": "MIT",
   "private": false,

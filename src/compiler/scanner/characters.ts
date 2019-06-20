@@ -1,54 +1,6 @@
 //
 // Copied from Microsoft/Typescript
 //
-
-/** Check if the like break */
-export function isLineBreak(ch: number): boolean {
-    return (
-        ch === CharacterCodes.lineFeed ||
-        ch === CharacterCodes.carriageReturn ||
-        ch === CharacterCodes.lineSeparator ||
-        ch === CharacterCodes.paragraphSeparator
-    )
-}
-
-export function isWhiteSpaceLike(ch: number): boolean {
-    return isWhiteSpaceSingleLine(ch) || isLineBreak(ch)
-}
-
-/** Does not include line breaks. For that, see isWhiteSpaceLike. */
-export function isWhiteSpaceSingleLine(ch: number): boolean {
-    return (
-        ch === CharacterCodes.space ||
-        ch === CharacterCodes.tab ||
-        ch === CharacterCodes.verticalTab ||
-        ch === CharacterCodes.formFeed ||
-        ch === CharacterCodes.nonBreakingSpace ||
-        ch === CharacterCodes.nextLine ||
-        ch === CharacterCodes.ogham ||
-        (ch >= CharacterCodes.enQuad && ch <= CharacterCodes.zeroWidthSpace) ||
-        ch === CharacterCodes.narrowNoBreakSpace ||
-        ch === CharacterCodes.mathematicalSpace ||
-        ch === CharacterCodes.ideographicSpace ||
-        ch === CharacterCodes.byteOrderMark
-    )
-}
-
-export function isAlphaNumber(ch: number): boolean {
-    return isAlphabet(ch) || isNumber(ch)
-}
-
-export function isAlphabet(ch: number): boolean {
-    return (
-        (ch >= CharacterCodes.a && ch <= CharacterCodes.z) ||
-        (ch >= CharacterCodes.A && ch <= CharacterCodes.Z)
-    )
-}
-
-export function isNumber(ch: number): boolean {
-    return ch >= CharacterCodes._0 && ch <= CharacterCodes._9
-}
-
 export const enum CharacterCodes {
     nullCharacter = 0,
     maxAsciiCharacter = 0x7f,
@@ -183,4 +135,48 @@ export const enum CharacterCodes {
     byteOrderMark = 0xfeff,
     tab = 0x09, // \t
     verticalTab = 0x0b, // \v
+}
+
+/** Check if the like break */
+export function isLineBreak(ch: number): boolean {
+    return (
+        ch === CharacterCodes.lineFeed ||
+        ch === CharacterCodes.carriageReturn ||
+        ch === CharacterCodes.lineSeparator ||
+        ch === CharacterCodes.paragraphSeparator
+    )
+}
+
+/** Does not include line breaks. For that, see isWhiteSpaceLike. */
+export function isWhiteSpaceSingleLine(ch: number): boolean {
+    return (
+        ch === CharacterCodes.space ||
+        ch === CharacterCodes.tab ||
+        ch === CharacterCodes.verticalTab ||
+        ch === CharacterCodes.formFeed ||
+        ch === CharacterCodes.nonBreakingSpace ||
+        ch === CharacterCodes.nextLine ||
+        ch === CharacterCodes.ogham ||
+        (ch >= CharacterCodes.enQuad && ch <= CharacterCodes.zeroWidthSpace) ||
+        ch === CharacterCodes.narrowNoBreakSpace ||
+        ch === CharacterCodes.mathematicalSpace ||
+        ch === CharacterCodes.ideographicSpace ||
+        ch === CharacterCodes.byteOrderMark
+    )
+}
+
+export function isWhiteSpaceLike(ch: number): boolean {
+    return isWhiteSpaceSingleLine(ch) || isLineBreak(ch)
+}
+
+export function isAlphabet(ch: number): boolean {
+    return (ch >= CharacterCodes.a && ch <= CharacterCodes.z) || (ch >= CharacterCodes.A && ch <= CharacterCodes.Z)
+}
+
+export function isNumber(ch: number): boolean {
+    return ch >= CharacterCodes._0 && ch <= CharacterCodes._9
+}
+
+export function isAlphaNumber(ch: number): boolean {
+    return isAlphabet(ch) || isNumber(ch)
 }
